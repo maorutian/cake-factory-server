@@ -1,0 +1,38 @@
+@url=http://localhost:5678/api
+@json=Content-Type: application/json
+@token=Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU0Mzc3Mzk3ZGJlOTMzY2FiMDU2ZWJiIn0sImlhdCI6MTU4MTQ4Mjc0M30.288TsZPye247C0jUOb1xT38jy1VIs-Jwdxaw3blP8Hg
+
+
+### get all roles
+GET {{url}}/roles
+
+
+### add a new role
+POST {{url}}/roles
+{{json}}
+
+{
+    "name":"Employee2",
+    "menus":["/home","/product","/category"],
+    "auth_name":"admin"
+}
+
+###  delete role by id
+DELETE {{url}}/roles
+{{json}}
+
+{
+    "id":"5e6848ebc1f2757454344a7e"
+}
+
+### update role by id
+PUT {{url}}/roles
+{{json}}
+
+{
+    "id":"5e6923fa47014ec384b4892c",
+    "name":"Employee5",
+    "menus":["/home","/product","/category"],
+    "auth_name":"admin"
+}
+

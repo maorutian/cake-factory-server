@@ -1,0 +1,38 @@
+@url=http://localhost:5678/api
+@json=Content-Type: application/json
+@token=Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU0Mzc3Mzk3ZGJlOTMzY2FiMDU2ZWJiIn0sImlhdCI6MTU4MTQ4Mjc0M30.288TsZPye247C0jUOb1xT38jy1VIs-Jwdxaw3blP8Hg
+
+
+### get all users
+GET {{url}}/users
+
+
+### add a new user
+POST {{url}}/users
+{{json}}
+
+{
+    "username":"tttteeeeeew",
+    "password":"joe123",
+    "email": "eewetttteeew@gmail.com",
+    "role":"5e684787f85c3e73e55120b2"
+}
+
+###  delete user by id
+DELETE {{url}}/users
+{{json}}
+
+{
+    "id":"5e693af12640a9ce50da89e2"
+}
+
+### update user by id
+PUT {{url}}/users
+{{json}}
+
+{
+    "id":"5e693425be4a42ca3196e3ed",
+    "username":"jack",
+    "role":"5e684787f85c3e73e55120b2",
+    "email": "jack22@gmail.com"
+}

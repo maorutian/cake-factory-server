@@ -1,0 +1,36 @@
+@url=http://localhost:5678/api
+@json=Content-Type: application/json
+@token=Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU0Mzc3Mzk3ZGJlOTMzY2FiMDU2ZWJiIn0sImlhdCI6MTU4MTQ4Mjc0M30.288TsZPye247C0jUOb1xT38jy1VIs-Jwdxaw3blP8Hg
+
+
+### get all categories
+GET {{url}}/categories
+
+
+### insert a new category
+POST {{url}}/categories
+{{json}}
+
+{
+    "name":"milk"
+}
+
+###  delete category by id
+DELETE {{url}}/categories
+{{json}}
+
+{
+    "id":"5e6841fdc8500c71dbcf09d6"
+}
+
+### update category by id
+PUT {{url}}/categories
+{{json}}
+
+{
+    "id":"5e680f8272c20e5bf4ea2068",
+    "name":"drink"
+}
+
+###  get info of the category by id
+GET {{url}}/category/5e65ad0255001363650c0228

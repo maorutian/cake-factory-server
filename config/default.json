@@ -1,0 +1,6 @@
+{
+  "mongoDBConnectURI":"mongodb+srv://maoru:maoru123@humber-vkfds.mongodb.net/cake_db?retryWrites=true&w=majority",
+  "jwtsecret": "secret",
+  "port": "5678"
+}
+

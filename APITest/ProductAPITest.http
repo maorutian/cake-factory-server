@@ -1,0 +1,52 @@
+@url=http://localhost:5678/api
+@json=Content-Type: application/json
+@token=Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU0Mzc3Mzk3ZGJlOTMzY2FiMDU2ZWJiIn0sImlhdCI6MTU4MTQ4Mjc0M30.288TsZPye247C0jUOb1xT38jy1VIs-Jwdxaw3blP8Hg
+
+
+### get all products
+GET {{url}}/products?pageNum=1&pageSize=100
+
+
+### insert a new product
+POST {{url}}/products
+{{json}}
+
+{
+    "name":"abc",
+    "category":"5e65a9c079b1dd61ce218f85",
+    "price":"99999"
+}
+
+###  delete product by id
+DELETE {{url}}/products
+{{json}}
+
+{
+    "id":"5e67d9541f92d322df8d4d8e"
+}
+
+### update product by id
+PUT {{url}}/products
+{{json}}
+
+ {
+    "id": "5e6812103601475d2d607272",
+    "name": "Buttercream flower cake777",
+    "category": "5e65a7f179b1dd61ce218f84",
+    "price": "333"
+  }
+
+###  get info of the product by id
+GET {{url}}/product/5e67dc6e1f92d322df8d4d90
+
+### serach product by name or description
+GET {{url}}/productsearch?pageNum=1&pageSize=2&productName=cake
+
+### change product status
+PUT {{url}}/products
+{{json}}
+
+ {
+    "id": "5e67dc6e1f92d322df8d4d90",
+    "status": "0"
+  }
