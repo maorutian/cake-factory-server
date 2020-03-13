@@ -9,13 +9,13 @@ const app = express();
 //CORS
 app.use(cors());
 
-let corsOptions = {
-  origin: 'localhost:3000',
-}
-
-app.get('/products/:id', cors(corsOptions), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for only localhost:3000.'})
-});
+// let corsOptions = {
+//   origin: 'localhost:3000',
+// }
+//
+// app.get('/products/:id', cors(corsOptions), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for only localhost:3000.'})
+// });
 
 //connect to db
 connectDB();

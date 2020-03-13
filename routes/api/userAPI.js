@@ -58,18 +58,7 @@ module.exports = function userAPI(router) {
         }
       }
       let nu = await User.create(newUser);
-      let newnu = {
-        _id: nu.id,
-        username: nu.username,
-        email: nu.email,
-        role: nu.role,
-        create_time: nu.create_time
-
-      }
-      console.log(nu);
-      //nu.delete['password'];
-      nu.password = '';
-      console.log(newnu);
+      const newnu = await await User.findById(nu.id,filter);
       res.json(newnu);
     } catch (e) {
       console.log(e);
