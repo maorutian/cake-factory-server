@@ -28,6 +28,7 @@
 
 
 ## 1. URL  ```/api/categories```
+### Test https://cakefactoryserver.herokuapp.com/api/categories
 ### 1.1 Request method： ```GET```
 ### 1.1 Description: get all categories
 ### 1.1 Success Example：
@@ -95,6 +96,7 @@
 	???- miss 1 dig-Cast to ObjectId failed for value "5e65ad0255001363650c022" at path "_id" for model "category"
 
 ## 2. URL  ```/api/category/:id```
+### Test https://cakefactoryserver.herokuapp.com/api/category/5e65a9c079b1dd61ce218f85
 ### 2 Request method： ```GET```
 ### 2 Description: get info of the category by id
 ### 2 Success Example：
