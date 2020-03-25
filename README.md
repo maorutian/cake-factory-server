@@ -28,7 +28,7 @@
 
 
 ## 1. URL  ```/api/categories```
-### Test https://cakefactoryserver.herokuapp.com/api/categories
+### Test:  https://cakefactoryserver.herokuapp.com/api/categories
 ### 1.1 Request method： ```GET```
 ### 1.1 Description: get all categories
 ### 1.1 Success Example：
@@ -96,7 +96,7 @@
 	???- miss 1 dig-Cast to ObjectId failed for value "5e65ad0255001363650c022" at path "_id" for model "category"
 
 ## 2. URL  ```/api/category/:id```
-### Test https://cakefactoryserver.herokuapp.com/api/category/5e65a9c079b1dd61ce218f85
+### Test:  https://cakefactoryserver.herokuapp.com/api/category/5e65a9c079b1dd61ce218f85
 ### 2 Request method： ```GET```
 ### 2 Description: get info of the category by id
 ### 2 Success Example：
@@ -111,6 +111,7 @@
 
 	
 ## 3. URL  ```/api/products```
+### Test:  https://cakefactoryserver.herokuapp.com/api/products?pageNum=1&pageSize=5
 ### 3.1 Request method： ```GET```
 ### 3.1 Description: get all products
 ### 3.1 Parameters
@@ -212,6 +213,7 @@
 
 
 ## 4. URL  ```/api/product/:id```
+### Test:  https://cakefactoryserver.herokuapp.com/api/product/5e66f8851f92d322df8d4d8d
 ### 4 Request method： ```GET```
 ### 4 Description: get info of the product by id
 ### 4 Success Example：
@@ -230,6 +232,7 @@
  	
  	
 ## 5. URL  ```/api/productsearch```
+### Test:  https://cakefactoryserver.herokuapp.com/api/productsearch?pageNum=1&pageSize=3&productName=cake
 ### 5 Request method： ```GET```
 ### 5 Description: search product by name or desc
 ### 5 Parameters
@@ -403,6 +406,7 @@
 
 
 ## 9. URL  ```/api/users```
+### Test:  https://cakefactoryserver.herokuapp.com/api/users
 ### 9.1 Request method： ```GET```
 ### 9.1 Description: get all users
 ### 9.1 Success Example：
