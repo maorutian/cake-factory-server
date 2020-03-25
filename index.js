@@ -1,7 +1,7 @@
 const express = require('express');
 const indexRoute = require('./routes/api/index');
 const config = require('config');
-const PORT = config.get('port');
+const PORT = process.env.PORT || config.get('port');
 const connectDB = require('./config/connectDB');
 const cors = require('cors');
 
