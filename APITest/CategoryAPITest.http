@@ -12,7 +12,7 @@ POST {{url}}/categories
 {{json}}
 
 {
-    "name":"milk"
+    "name":"testcategory"
 }
 
 ###  delete category by id
@@ -20,7 +20,7 @@ DELETE {{url}}/categories
 {{json}}
 
 {
-    "id":"5e6841fdc8500c71dbcf09d6"
+    "id":"5e853cb8b90d671f5e14257b"
 }
 
 ### update category by id

@@ -12,9 +12,9 @@ POST {{url}}/products
 {{json}}
 
 {
-    "name":"abc",
-    "category":"5e65a9c079b1dd61ce218f85",
-    "price":"99999"
+    "name":"testproduct",
+    "category":"5e853cb8b90d671f5e14257b",
+    "price":"99"
 }
 
 ###  delete product by id

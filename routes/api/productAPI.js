@@ -51,7 +51,7 @@ module.exports = function productAPI(router) {
     }
   });
 //POST -- insert a new product
-  router.post('/products',productValidator, async (req, res) => {
+  router.post('/products', productValidator, async (req, res) => {
       try {
         //validate
         const errors = validationResult(req);
@@ -88,7 +88,7 @@ module.exports = function productAPI(router) {
     }
   });
 //PUT - update product by id
-  router.put('/products',productValidator, async (req, res) => {
+  router.put('/products', productValidator, async (req, res) => {
     try {
       //validate
       const errors = validationResult(req);
@@ -113,9 +113,9 @@ module.exports = function productAPI(router) {
 
 //PATH: api/product/:id (GET)
 //GET -- get info of the product by id
-  router.get('/product/:id', async (req, res) => {
+  router.get('/product', async (req, res) => {
     try {
-      const product = await Product.findById(req.params.id);
+      const product = await Product.findById(req.query.id);
       if (!product) {
         return res.status(404).send('Product does not exist');
       }
@@ -149,12 +149,12 @@ module.exports = function productAPI(router) {
 
   //PATH:api/product/status
   //PUT -- change product status(in stock/out of stock) (1:in stock;0:out of stack)
-  router.put('/productstatus',async (req,res)=>{
+  router.put('/productstatus', async (req, res) => {
     try {
       const {productId, status} = req.body;
       await Product.findOneAndUpdate({_id: productId}, {status});
       res.send({status});
-    }catch (e) {
+    } catch (e) {
       res.status(500).send('Server error');
     }
   });
