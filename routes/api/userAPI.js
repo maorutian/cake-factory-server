@@ -58,7 +58,7 @@ module.exports = function userAPI(router) {
         }
       }
       let nu = await User.create(newUser);
-      const newnu = await await User.findById(nu.id,filter);
+      const newnu = await await User.findById(nu.id, filter);
       res.json(newnu);
     } catch (e) {
       console.log(e);
@@ -107,31 +107,46 @@ module.exports = function userAPI(router) {
   //POST -- login
   router.post('/login', async (req, res) => {
       const {username, password} = req.body;
-
-      //check username
-      const user = await User.findOne({username});
-      if (!user) {
-        return res.status(400).json({error: [{msg: "username does not exist"}]})
-      }
-
-      //check password
-      const isPassword = bcrypt.compareSync(password, user.password);
-      if (!isPassword) {
-        return res.status(400).json({error: [{msg: "password is wrong"}]})
-      }
-
-      //generate token
-      const payload = {
-        user: {
-          id: user.id,
+      try {
+        //check username
+        const user = await User.findOne({username});
+        if (!user) {
+          return res.status(400).json({errors: [{msg: "username does not exist"}]})
         }
-      };
-      const token = jwt.sign(payload, config.get('jwtsecret'), {expiresIn: "10h"});
 
-      res.send({
-        user,
-        token
-      })
+        //check password
+        const isPassword = bcrypt.compareSync(password, user.password);
+        if (!isPassword) {
+          return res.status(400).json({errors: [{msg: "password is wrong"}]})
+        }
+
+        //generate token
+        const payload = {
+          user: {
+            id: user.id,
+            username: user.username
+          }
+        };
+
+        // const token = jwt.sign(payload, config.get('jwtsecret'), {expiresIn: "10h"});
+        // res.send({
+        //   user,
+        //   token
+        // });
+
+        jwt.sign(
+          payload,
+          config.get('jwtsecret'),
+          {expiresIn: 36000},
+          (err, token) => {
+            if (err) throw err;
+            res.json({token});
+          }
+        );
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+      }
     }
   );
 
