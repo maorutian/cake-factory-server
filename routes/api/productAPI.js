@@ -41,7 +41,7 @@ module.exports = function productAPI(router) {
 
 //PATH: api/products (GET,POST,PUT,DELETE)
 //GET -- get all products
-  router.get('/products', async (req, res) => {
+  router.get('/products', auth,async (req, res) => {
     try {
       const {pageNum, pageSize} = req.query;
       const products = await Product.find();
