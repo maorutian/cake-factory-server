@@ -5,10 +5,13 @@ const RoleSchema = new Schema({
   name: {
     type: String, required: true
   },
-  auth_name: String,
+  created_name: String,
   created_time: {
     type: Number,
-    default: Date.now
+  },
+  auth_name: String,
+  auth_time: {
+    type: Number,
   },
   menus: Array //available navigation path for each role
 });

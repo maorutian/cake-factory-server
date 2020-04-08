@@ -63,7 +63,7 @@ module.exports = function productAPI(router) {
         //console.log(newProduct);
         const product = await Product.findOne({name: newProduct.name});
         if (product) {
-          return res.status(400).send('Product exists');
+          return res.status(400).send({errors: [{msg: "Product exist"}]});
         }
         const np = await Product.create(newProduct);
         res.json(np);
@@ -78,7 +78,8 @@ module.exports = function productAPI(router) {
       const productId = req.body.id;
       let product = await Product.findById(productId);
       if (!product) {
-        return res.status(404).send('Product does not exist');
+        return res.status(400).send({errors: [{msg: "Product does not exist"}]});
+
       }
       await Product.findByIdAndRemove({_id: productId});
       res.json({msg: 'Product deleted'});
@@ -99,7 +100,7 @@ module.exports = function productAPI(router) {
       const productId = req.body.id;
       let product = await Product.findById(productId);
       if (!product) {
-        return res.status(404).send('Product does not exist');
+        return res.status(400).send({errors: [{msg: "Product does not exist"}]});
       }
       const newProduct = req.body;
       await Product.findOneAndUpdate({_id: productId}, newProduct);
@@ -117,7 +118,7 @@ module.exports = function productAPI(router) {
     try {
       const product = await Product.findById(req.query.id);
       if (!product) {
-        return res.status(404).send('Product does not exist');
+        return res.status(400).send('Product does not exist');
       }
       res.send(product);
     } catch (err) {

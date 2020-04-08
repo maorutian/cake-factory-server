@@ -204,7 +204,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 
 ### 3.4 Success Example：
 	{
-	  "id": "5e6812103601475d2d607272",
+	  "_id": "5e6812103601475d2d607272",
 	  "name": "Buttercream flower cake777",
 	  "category": "5e65a7f179b1dd61ce218f84",
 	  "price": 98
@@ -315,52 +315,50 @@ Host: https://cakefactoryserver.herokuapp.com/
 ### 8.1 Success Example：
 	[
 	  {
-	    "menus": [
-	      "/home",
-	      "/product",
-	      "/category",
-	      "/role",
-	      "/user"
-	    ],
-	    "_id": "5e68427122205c720c463545",
-	    "name": "CEO",
-	    "auth_name": "maoru",
-	    "created_time": 1582069504634,
-	    "__v": 0
-	  },
-	  {
-	    "menus": [
-	      "/home",
-	      "/product",
-	      "/category",
-	      "/user"
-	    ],
-	    "_id": "5e684772f85c3e73e55120b1",
-	    "name": "Manager",
-	    "auth_name": "maoru",
-	    "created_time": 1582069504634,
-	    "__v": 0
-	  }
+			"menus": [
+				"all",
+				"/home",
+				"/products",
+				"/category",
+				"/product",
+				"/user",
+				"/role",
+				"/statistic",
+				"/statistic/bar",
+				"/statistic/line",
+				"/statistic/pie"
+				],
+			"_id": "5e8d449d5f72b4b209fa42c7",
+			"name": "Sales",
+			"created_name": "admin",
+			"created_time": 1586316445238,
+			"__v": 0,
+			"auth_name": "admin",
+			"auth_time": 1586318136359
+		},
+		{
+			"menus": [],
+			"_id": "5e8d44bf5f72b4b209fa42c8",
+			"name": "customer service",
+			"created_name": "admin",
+			"created_time": 1586316479470,
+			"__v": 0
+		}
 	]  
 ### 8.2 Request method： ```POST```
 ### 8.2 Description: add a new role
 ### 8.2 Parameters
-	|Parameter    |Required  |Type     |Description
-	|name         |Y         |string   |role name, unique
-	|menus        |Y         |array    |menu items can be visited by this role
-	|auth_name    |Y         |string   |user who created the role
+	|Parameter      |Required  |Type     |Description
+	|id             |Y         |string   |role id
+	|name           |Y         |string   |role name, unique
+	|created_name   |Y         |string   |username who created the role
+	|created_time   |Y         |string   |time when role is created
    
-
 ### 8.2 Success Example：
 	{
-	    "menus": [
-	      "/home",
-	      "/product",
-	      "/category"
-	    ],
-	    "_id": "5e684787f85c3e73e55120b2",
+	   	 "_id": "5e684787f85c3e73e55120b2",
 	    "name": "Employee",
-	    "auth_name": "admin",
+	    "create_name": "admin",
 	    "created_time": 1582069504634,
 	    "__v": 0
 	}
@@ -372,7 +370,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 ### 8.3 Description: delete role by id
 ### 8.3 Parameters
 	|Parameter	 |Required  |Type     |Description
-	|id              |Y         |string   |role id
+	|id          |Y         |string   |role id
 
 
 ### 8.3 Success Example：
@@ -383,29 +381,41 @@ Host: https://cakefactoryserver.herokuapp.com/
 ### 8.3 Failure：
 	404: Role does not exist
 ### 8.4 Request method： ```PUT```
-### 8.4 Description: update role by id
+### 8.4 Description: Authorized role by id
 ### 8.4 Parameters
 	|Parameter    |Required  |Type     |Description
-	|id           |Y         |string   |category id
-	|name         |Y         |string   |role name, unique
+	|id           |Y         |string   |role id
 	|menus        |Y         |array    |menu items can be visited by this role
-	|auth_name    |Y         |string   |user who created the role
+	|auth_name    |Y         |string   |username who authorized the role
+	|auth_time    |Y         |string   |time when role is authorized
 
 ### 8.4 Success Example：
+	
 	{
-	  "id": "5e6923fa47014ec384b4892c",
-	  "name": "Employee5",
-	  "menus": [
-	    "/home",
-	    "/product",
-	    "/category"
-	  ],
-	  "auth_name": "admin"
-	}
+		"menus": [
+			"all",
+			"/home",
+			"/productskey",
+			"/category",
+			"/product",
+			"/user",
+			"/role",
+			"/statistickey",
+			"/statistic/bar",
+			"/statistic/line",
+			"/statistic/pie"
+			],
+		"_id": "5e8d444d5f72b4b209fa42c5",
+		"name": "CEO",
+		"created_name": "admin",
+		"created_time": 1586316365443,
+		"__v": 0,
+		"auth_name": "admin",
+		"auth_time": 1586316504043
+	},
 ### 8.4 Failure：
 	404: Role does not exist
 	422: Data validation error
-
 
 ## 9. URL  ```/api/users```
 ### Test:  https://cakefactoryserver.herokuapp.com/api/users
@@ -512,12 +522,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 
 ### 10 Success Example：
 	{
-	  "_id": "5e693c8657065cce93c35b54",
-	  "username": "mia",
-	  "password": "$2b$10$Kc91O5D3Qly2SkLjZLJnB.S6Wwxqw9l5WQkIdpf4xTj0hKxgJQjj.",
-	  "role": "5e684787f85c3e73e55120b2",
-	  "create_time": 1583955078302,
-	  "__v": 0
+	"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU4YjZjMDZmM2I4Njc3ODE5ZDI0ZGQzIiwidXNlcm5hbWUiOiJhZG1pbiJ9LCJpYXQfszA"
 	}
 
 ### 10 Failure：

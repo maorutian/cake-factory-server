@@ -8,8 +8,10 @@ const Role = require('../../models/Role');
 const roleValidator = [
   //name
   check('name', 'name is required').notEmpty().trim(),
-  //auth_name
-  check('auth_name', 'auth_name is required').notEmpty().trim(),
+  //created_name
+  check('created_name', 'created_name is required').notEmpty().trim(),
+  //created_time
+  check('created_time', 'created_time is required').notEmpty().trim(),
 ];
 
 module.exports = function roleAPI(router) {
@@ -32,11 +34,11 @@ module.exports = function roleAPI(router) {
       if (!errors.isEmpty()) {
         return res.status(422).json({errors: errors.array()});
       }
-      //
+      //check if name exists
       const newRole = req.body;
       const role = await Role.findOne({name: newRole.name});
       if (role) {
-        return res.status(400).send('Role exists');
+        return res.status(400).send({errors: [{msg: "Role exists"}]});
       }
       const nr = await Role.create(newRole);
       res.json(nr);
@@ -50,7 +52,7 @@ module.exports = function roleAPI(router) {
       const roleId = req.body.id;
       let role = await Role.findById(roleId);
       if (!role) {
-        return res.status(404).send('Role does not exist');
+        return res.status(400).send({errors: [{msg: "Role does not exist"}]});
       }
       await Role.findByIdAndRemove({_id: roleId});
       res.json({msg: 'Role deleted'});
@@ -59,7 +61,7 @@ module.exports = function roleAPI(router) {
       res.status(500).send('Server Error');
     }
   });
-  //PUT - update role by id
+  //PUT - authorized a role (update menus and auth_name)
   router.put('/roles',roleValidator, async (req, res) => {
     try {
       //validate
@@ -67,20 +69,23 @@ module.exports = function roleAPI(router) {
       if (!errors.isEmpty()) {
         return res.status(422).json({errors: errors.array()});
       }
-
       const roleId = req.body.id;
+      console.log(req.body);
+      console.log(req.body.id);
+      console.log(req.body._id);
       let role = await Role.findById(roleId);
       if (!role) {
-        return res.status(404).send('Role does not exist');
+        return res.status(400).send({errors: [{msg: "Role does not exist"}]});
       }
       const newRole = req.body;
-      await Role.findOneAndUpdate({_id: roleId}, newRole);
+      console.log(roleId);
+      const r = await Role.findOneAndUpdate({_id: roleId}, newRole);
+      console.log(r);
       res.json(newRole);
     } catch (err) {
       console.log(err.message);
       res.status(500).send('Server error');
     }
   });
-
 
 };
