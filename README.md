@@ -356,7 +356,7 @@ Host: https://cakefactoryserver.herokuapp.com/
    
 ### 8.2 Success Example：
 	{
-	   	 "_id": "5e684787f85c3e73e55120b2",
+	    "_id": "5e684787f85c3e73e55120b2",
 	    "name": "Employee",
 	    "create_name": "admin",
 	    "created_time": 1582069504634,
@@ -369,7 +369,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 ### 8.3 Request method： ```DELETE```
 ### 8.3 Description: delete role by id
 ### 8.3 Parameters
-	|Parameter	 |Required  |Type     |Description
+	|Parameter   |Required  |Type     |Description
 	|id          |Y         |string   |role id
 
 
