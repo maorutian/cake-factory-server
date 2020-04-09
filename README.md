@@ -427,6 +427,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 	    "_id": "5e69330aba0d5ac9e8b74be5",
 	    "username": "lily",
 	    "role": "5e68427122205c720c463545",
+	    "role_name": "CEO",
 	    "create_time": 1583952650191,
 	    "__v": 0
 	  },
@@ -434,6 +435,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 	    "_id": "5e6933851dfb54ca1f589e25",
 	    "username": "lily2",
 	    "role": "5e68427122205c720c463545",
+	    "role_name": "CEO",
 	    "email": "lily@gmail.com",
 	    "create_time": 1583952773760,
 	    "__v": 0
@@ -442,6 +444,7 @@ Host: https://cakefactoryserver.herokuapp.com/
 	    "_id": "5e693425be4a42ca3196e3ed",
 	    "username": "jack",
 	    "role": "5e68427122205c720c463545",
+	    "role_name": "CEO",
 	    "email": "jack@gmail.com",
 	    "phone": "6574937554",
 	    "create_time": 1583952933607,

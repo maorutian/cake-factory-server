@@ -29,8 +29,22 @@ module.exports = function userAPI(router) {
 //GET -- get all users
   router.get('/users', async (req, res) => {
     try {
-      const users = await User.find({}, filter);
-      res.send(users);
+      //change mongoose object to normal object
+      let users = await User.find({}, filter).lean();
+
+      //use Promise.all for map
+      let usersWithRoleName =
+        await Promise.all(
+          users.map(async (item) => {
+            let roleId = item.role;
+            let role = await Role.findById(roleId);
+            item.role_name = role.name;
+            return item;
+          })
+        );
+
+      res.send(usersWithRoleName);
+
     } catch (e) {
       res.status(500).send('Server error');
     }
@@ -48,13 +62,13 @@ module.exports = function userAPI(router) {
       //console.log(newUser);
       const username = await User.findOne({username: newUser.username});
       if (username) {
-        return res.status(400).send('Username exists');
+        return res.status(400).json({errors: [{msg: "Username exists"}]})
       }
       //check email
       if (newUser.email) {
         const userEmail = await User.findOne({email: newUser.email});
         if (userEmail) {
-          return res.status(400).send('Email exists');
+          return res.status(400).json({errors: [{msg: "Email exists"}]})
         }
       }
       let nu = await User.create(newUser);
@@ -71,7 +85,7 @@ module.exports = function userAPI(router) {
       const userId = req.body.id;
       let user = await User.findById(userId);
       if (!user) {
-        return res.status(404).send('User does not exist');
+        return res.status(400).json({errors: [{msg: "User does not exist"}]})
       }
       await User.findByIdAndRemove({_id: userId});
       res.json({msg: 'User deleted'});
@@ -92,7 +106,7 @@ module.exports = function userAPI(router) {
       const userId = req.body.id;
       let user = await User.findById(userId);
       if (!user) {
-        return res.status(404).send('User does not exist');
+        return res.status(400).json({errors: [{msg: "User does not exist"}]})
       }
       const newUser = req.body;
       await User.findOneAndUpdate({_id: userId}, newUser);
