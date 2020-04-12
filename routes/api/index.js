@@ -3,7 +3,7 @@ const router = express.Router();
 
 require('./categoryAPI')(router);
 require('./productAPI')(router);
-require('./uploadImagesAPI')(router);
+require('./imagesAPI')(router);
 require('./roleAPI')(router);
 require('./userAPI')(router);
 
