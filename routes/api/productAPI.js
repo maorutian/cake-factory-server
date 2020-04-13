@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const {check, validationResult} = require('express-validator');
-const auth = require('../../middleware/auth');
 const Product = require('../../models/Product');
 const Category = require('../../models/Category');
 
@@ -42,7 +41,7 @@ module.exports = function productAPI(router) {
 
 //PATH: api/products (GET,POST,PUT,DELETE)
 //GET -- get all products
-  router.get('/products', auth, async (req, res) => {
+  router.get('/products', async (req, res) => {
     try {
       const {pageNum, pageSize} = req.query;
       let products = await Product.find().lean();

@@ -63,14 +63,24 @@ module.exports = function fileUpload(router) {
   router.delete('/images', (req, res) => {
     try {
       const {name} = req.body;
-      fs.unlink(path.join(dirPath, name), (err) => {
-        if (err) {
-          console.log(err);
-          res.status(400).json({errors: [{msg: "Delete Failed"}]})
-        } else {
-          res.send("ok");
+      const imgPath = path.join(dirPath, name);
+      fs.exists(imgPath, (exists) => {
+        if (exists) {
+          fs.unlink(path.join(dirPath, name), (err) => {
+            if (err) {
+              console.log(err);
+              res.status(400).json({errors: [{msg: "Delete Failed"}]})
+              //res.send("No file in server");
+            } else {
+              res.send("ok");
+            }
+          })
+        }
+        if (!exists) {
+          res.send("No file in server");
         }
       })
+
     } catch (e) {
       res.status(500).send('Server error');
     }
@@ -86,14 +96,14 @@ module.exports = function fileUpload(router) {
     } catch (e) {
       res.status(500).send('Server error');
     }
-  })
+  });
 
 
   //display image
   router.get('/upload/*', function (req, res) {
     try {
       console.log("Request for " + req.url + " received.");
-      const imgPath = path.join(__dirname, '..', '..', '/public',req.url);
+      const imgPath = path.join(__dirname, '..', '..', '/public', req.url);
       res.sendFile(imgPath);
     } catch (e) {
       res.status(500).send('Server error');

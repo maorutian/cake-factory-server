@@ -1,9 +1,11 @@
 const express = require('express');
-const indexRoute = require('./routes/api/index');
+const authRoute = require('./routes/api/authorizationAPI');
+const noAuthRoute = require('./routes/api/noAuthorizationAPI');
 const config = require('config');
 const PORT = process.env.PORT || config.get('port');
 const connectDB = require('./config/connectDB');
 const cors = require('cors');
+const auth = require('./middleware/auth');
 
 const app = express();
 //CORS
@@ -23,6 +25,13 @@ connectDB();
 //set a middleware to parse data
 app.use(express.json());
 
-app.use('/api', indexRoute);
+//without Authorization
+app.use('/api', noAuthRoute);
+
+//with Authorization
+app.use(auth);
+app.use('/api', authRoute);
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
