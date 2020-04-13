@@ -134,11 +134,15 @@ module.exports = function userAPI(router) {
           return res.status(400).json({errors: [{msg: "password is wrong"}]})
         }
 
+        let roleId = user.role;
+        let role = await Role.findById(roleId);
+        let roleMenus = role.menus;
         //generate token
         const payload = {
           user: {
             id: user.id,
-            username: user.username
+            username: user.username,
+            menus:roleMenus
           }
         };
 

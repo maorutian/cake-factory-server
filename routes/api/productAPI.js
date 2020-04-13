@@ -3,6 +3,7 @@ const router = express.Router();
 const {check, validationResult} = require('express-validator');
 const auth = require('../../middleware/auth');
 const Product = require('../../models/Product');
+const Category = require('../../models/Category');
 
 //validation
 const productValidator = [
@@ -41,11 +42,23 @@ module.exports = function productAPI(router) {
 
 //PATH: api/products (GET,POST,PUT,DELETE)
 //GET -- get all products
-  router.get('/products', auth,async (req, res) => {
+  router.get('/products', auth, async (req, res) => {
     try {
       const {pageNum, pageSize} = req.query;
-      const products = await Product.find();
-      res.send(pagination(products, pageNum, pageSize));
+      let products = await Product.find().lean();
+
+      //use Promise.all for map
+      let productsWithCategoryName =
+        await Promise.all(
+          products.map(async (item) => {
+            let categoryId = item.category;
+            let category = await Category.findById(categoryId);
+            item.categoryName = category.name;
+            return item;
+          })
+        );
+
+      res.send(pagination(productsWithCategoryName, pageNum, pageSize));
     } catch (err) {
       res.status(500).send('Server error');
     }
@@ -131,19 +144,52 @@ module.exports = function productAPI(router) {
 //GET -- search product by name or description
   router.get('/productsearch', async (req, res) => {
     try {
-      const {pageNum, pageSize, productName, productDesc} = req.query;
+      const {pageNum, pageSize, productName, productCategory} = req.query;
+
 
       let condition = {};
+      let products = [];
       //case insensitive
+
       if (productName) {
         condition = {name: new RegExp(`^.*${productName}.*$`, 'i')};
-      } else if (productDesc) {
-        condition = {desc: new RegExp(`^.*${productDesc}.*$`, 'i')};
+        products = await Product.find(condition).lean();
+      } else if (productCategory) {
+        condition = {name: new RegExp(`^.*${productCategory}.*$`, 'i')};
+        //find the category id match category name
+        let categories = await Category.find(condition);
+        //console.log(categories);
+        if (categories.length === 0) {
+          products = []
+        } else {
+          products = await Product.find({
+            "$or": categories.map(item => {
+              return (
+                {category: item._id}
+              )
+            })
+          }).lean();
+        }
+      } else {
+        //search empty return all products
+        products = await Product.find().lean();
       }
-      let products = await Product.find(condition);
-      //console.log(products);
-      res.send(pagination(products, pageNum, pageSize));
+      console.log(products);
+      //add category name to product
+      //use Promise.all for map
+      let productsWithCategoryName =
+        await Promise.all(
+          products.map(async (item) => {
+            let categoryId = item.category;
+            let category = await Category.findById(categoryId);
+            item.categoryName = category.name;
+            return item;
+          })
+        );
+
+      res.send(pagination(productsWithCategoryName, pageNum, pageSize));
     } catch (err) {
+      console.log(err);
       res.status(500).send('Server error');
     }
   });
