@@ -11,25 +11,25 @@ const app = express();
 //CORS
 //app.use(cors());
 
-app.use(cors({
-  origin: 'https://maorutian.github.io/cake-factory-client'
-}));
-
-// let allowedOrigins = ['http://localhost:3000','https://maorutian.github.io/cake-factory-client'];
-//
 // app.use(cors({
-//   origin: function(origin, callback){
-//     // allow requests with no origin
-//     // (like mobile apps or curl requests)
-//     if(!origin) return callback(null, true);
-//     if(allowedOrigins.indexOf(origin) === -1){
-//       let msg = 'The CORS policy for this site does not ' +
-//         'allow access from the specified Origin.';
-//       return callback(new Error(msg), false);
-//     }
-//     return callback(null, true);
-//   }
+//   origin: 'https://maorutian.github.io/cake-factory-client'
 // }));
+
+let allowedOrigins = ['http://localhost:3000','https://maorutian.github.io'];
+
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      let msg = 'The CORS policy for this site does not ' +
+        'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 
 
